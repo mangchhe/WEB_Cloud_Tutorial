@@ -1,5 +1,6 @@
 server:
   port: 0
+  address: 127.0.0.1
 
 spring:
   application:
@@ -19,6 +20,8 @@ spring:
 eureka:
   instance:
     instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
+    ip-address: ${server.address}
+    prefer-ip-address: true
   client:
     register-with-eureka: true
     fetch-registry: true
