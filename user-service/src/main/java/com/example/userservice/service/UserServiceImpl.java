@@ -7,6 +7,8 @@ import com.example.userservice.vo.ResponseOrder;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,18 @@ public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        UserEntity user = userRepository.findByEmail(username);
+
+        if(user == null)
+            throw new UsernameNotFoundException(username);
+
+        return new User(user.getEmail(), user.getEncryptedPwd(),
+                true, true, true, true,
+                new ArrayList<>());
+    }
 
     @Override
     public UserDto createUser(UserDto userDto) {
@@ -52,4 +66,5 @@ public class UserServiceImpl implements UserService{
     public Iterable<UserEntity> getUserByAll() {
         return userRepository.findAll();
     }
+
 }
