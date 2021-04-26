@@ -4,8 +4,17 @@ server:
 spring:
   application:
     name: config-service
+  profiles:
+    active: native
   cloud:
     config:
       server:
+        native:
+          search-locations: file:///${user.home}/Desktop/Spring Study/native-local-repo
         git:
-          uri: file:///c:/Users/HaJooHyun/Desktop/Spring Study/git-local-repo
+          # Local Repository
+#          uri: file:///c:/Users/HaJooHyun/Desktop/Spring Study/git-local-repo
+          # Remote Repository
+          uri: https://github.com/mangchhe/WEB_Cloud_Tutorial_Config.git
+#          username: [username]
+#          password: [password]
