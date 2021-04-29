@@ -12,3 +12,6 @@ spring:
     username: sa
     password: '{cipher}AQCEOp75wvKQhwHOpjb/TXTFyLvc0QW9VrmqMglP/Bc3XxpBNaygWQlebMujh8YQgrmavtx/QqkxgSKfWevKLKqCf9d/tU6F74BTj53yA15bdCEkyabB/Gf28UPnwa0FE7+amULfMV0xooUMtmg9rSyaoZX7pfRmYk9tISMw0y2Zd6h7WJq07pZxIBpNutbeUqLzG1BnCuj3rd+5hTG8d3uEQsKt7hqZ75V6NhoMfEdlbHr3laaKb6tnK+i0AV01lF0fBGk7FxAWXK3XCuvZqVbqF++46PJnGMxraKE08g5TTxV1OSCGTnbnoOzm0Tw5kmxy4TxIv+nu88Ak7TqWe7U8BmO+KkcQuMrEI2WdtVD/vuuHe3cE9F294516l7XXlh8='
     # password: '{cipher}f181333e2725e5e4d296b04894c5533d4f51f5556569829ffbd4c25fffbfa21f'
+
+order_service:
+  url: 'http://ORDER-SERVICE/order-service/%s/orders'
