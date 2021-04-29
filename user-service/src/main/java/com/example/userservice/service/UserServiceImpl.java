@@ -29,8 +29,9 @@ public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
-    private final Environment env;
-    private final RestTemplate restTemplate;
+//    private final Environment env;
+//    private final RestTemplate restTemplate;
+    private final OrderServiceClient orderServiceClient;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -62,16 +63,24 @@ public class UserServiceImpl implements UserService{
 
         UserDto userDto = modelMapper.map(userEntity, UserDto.class);
 
+        /* Temporary Source */
 //        List<ResponseOrder> orders = new ArrayList<>();
 //        userDto.setOrders(orders);
 
-        String orderUrl = String.format(env.getProperty("order_service.url"), userId);
+        /* RestTemplate */
+//        String orderUrl = String.format(env.getProperty("order_service.url"), userId);
+//
+//        ResponseEntity<List<ResponseOrder>> orderListResponse = restTemplate.exchange(orderUrl, HttpMethod.GET, null,
+//                new ParameterizedTypeReference<List<ResponseOrder>>() {
+//                });
+//
+//        List<ResponseOrder> orderList = orderListResponse.getBody();
 
-        ResponseEntity<List<ResponseOrder>> orderListResponse = restTemplate.exchange(orderUrl, HttpMethod.GET, null,
-                new ParameterizedTypeReference<List<ResponseOrder>>() {
-                });
+        /* Feign */
 
-        userDto.setOrders(orderListResponse.getBody());
+        List<ResponseOrder> orderList = orderServiceClient.getOrders(userId);
+
+        userDto.setOrders(orderList);
 
         return userDto;
 
