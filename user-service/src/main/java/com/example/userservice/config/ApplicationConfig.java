@@ -1,5 +1,7 @@
 package com.example.userservice.config;
 
+import com.example.userservice.error.FeignErrorDecoder;
+import feign.Logger;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -28,6 +30,16 @@ public class ApplicationConfig {
 //    @LoadBalanced
 //    public RestTemplate restTemplate(){
 //        return new RestTemplate();
+//    }
+
+    @Bean
+    public Logger.Level feignLoggerLevel(){
+        return Logger.Level.FULL;
+    }
+
+//    @Bean
+//    public FeignErrorDecoder feignErrorDecoder(){
+//        return new FeignErrorDecoder();
 //    }
 
 }

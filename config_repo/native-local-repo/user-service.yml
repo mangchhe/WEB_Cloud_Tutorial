@@ -14,4 +14,6 @@ spring:
     # password: '{cipher}f181333e2725e5e4d296b04894c5533d4f51f5556569829ffbd4c25fffbfa21f'
 
 order_service:
-  url: 'http://ORDER-SERVICE/order-service/%s/orders'
+  url: http://ORDER-SERVICE/order-service/%s/orders
+  exception:
+    orders_is_empty: User's orders is empty.

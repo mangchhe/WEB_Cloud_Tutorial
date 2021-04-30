@@ -1,4 +1,4 @@
-package com.example.userservice.service;
+package com.example.userservice.client;
 
 import com.example.userservice.vo.ResponseOrder;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -10,6 +10,7 @@ import java.util.List;
 @FeignClient("order-service")
 public interface OrderServiceClient {
 
-    @GetMapping("/order-service/{userId}/orders")
+//    @GetMapping("/order-service/{userId}/orders")
+    @GetMapping("/order-service/{userId}/orders_wrong")
     List<ResponseOrder> getOrders(@PathVariable String userId);
 }
