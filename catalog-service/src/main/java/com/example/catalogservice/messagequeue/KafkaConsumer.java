@@ -18,7 +18,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class KafkaConsumer {
 
-    CatalogRepository catalogRepository;
+    private final CatalogRepository catalogRepository;
 
     @KafkaListener(topics = "example-catalog-topic")
     public void updateQty(String kafkaMessage){
