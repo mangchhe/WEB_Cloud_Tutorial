@@ -18,8 +18,6 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public OrderDto createOrder(OrderDto orderDetails) {
-        orderDetails.setOrderId(UUID.randomUUID().toString());
-        orderDetails.setTotalPrice(orderDetails.getUnitPrice() * orderDetails.getQty());
 
         OrderEntity order = mapper.map(orderDetails, OrderEntity.class);
         orderRepository.save(order);
