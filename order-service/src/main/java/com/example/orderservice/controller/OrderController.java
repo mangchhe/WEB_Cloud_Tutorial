@@ -8,6 +8,7 @@ import com.example.orderservice.service.OrderService;
 import com.example.orderservice.vo.RequestOrder;
 import com.example.orderservice.vo.ResponseOrder;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("order-service")
 @RequiredArgsConstructor
+@Slf4j
 public class OrderController {
     private final Environment env;
     private final OrderService orderService;
@@ -37,7 +39,7 @@ public class OrderController {
     @PostMapping("/{userId}/orders")
     public ResponseEntity<ResponseOrder> createOrder(@PathVariable("userId") String userId,
                                                      @RequestBody RequestOrder orderDetails){
-
+        log.info("Before add orders data");
         OrderDto orderDto = mapper.map(orderDetails, OrderDto.class);
         orderDto.setUserId(userId);
 
@@ -54,16 +56,27 @@ public class OrderController {
 
         ResponseOrder result = mapper.map(orderDto, ResponseOrder.class);
 
+        log.info("After added orders data");
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
     @GetMapping("/{userId}/orders")
-    public ResponseEntity<List<ResponseOrder>> getOrders(@PathVariable("userId") String userId){
+    public ResponseEntity<List<ResponseOrder>> getOrders(@PathVariable("userId") String userId) throws Exception{
+        log.info("Before retrieve orders data");
         Iterable<OrderEntity> orders = orderService.getOrdersByUserId(userId);
         List<ResponseOrder> result = new ArrayList<>();
         orders.forEach(v -> {
             result.add(mapper.map(v, ResponseOrder.class));
         });
+
+        try {
+            Thread.sleep(1000);
+            throw new Exception("장애 발생");
+        } catch (InterruptedException ex) {
+            log.warn(ex.getMessage());
+        }
+
+        log.info("Add retrieved orders data");
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
