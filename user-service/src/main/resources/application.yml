@@ -14,8 +14,8 @@ spring:
   rabbitmq:
     host: 127.0.0.1
     port: 5672
-    username: admin
-    password: test1234
+    username: guest
+    password: guest
   h2:
     console:
       enabled: true
@@ -45,7 +45,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh, health, beans, busrefresh
+        include: refresh, health, beans, busrefresh, info, prometheus, metrics
 
 #token:
 #  expiration_time: 86400000
