@@ -9,8 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>ecommerce</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>discoveryService</artifactId>
+<!--    <version>0.0.1-SNAPSHOT</version>-->
+    <version>1.0</version>
     <name>ecommerce</name>
     <description>study SpringCloud</description>
     <properties>

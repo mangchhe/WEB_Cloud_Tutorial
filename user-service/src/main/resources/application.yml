@@ -25,7 +25,7 @@ spring:
 
 eureka:
   instance:
-    instance-id:   ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
+    instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
     ip-address: ${server.address}
     prefer-ip-address: true
   client:

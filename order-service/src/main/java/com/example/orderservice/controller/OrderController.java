@@ -44,17 +44,17 @@ public class OrderController {
         orderDto.setUserId(userId);
 
         /* jpa */
-//        OrderDto order = orderService.createOrder(orderDto);
+        OrderDto order = orderService.createOrder(orderDto);
 
         /* kafka */
-        orderDto.setOrderId(UUID.randomUUID().toString());
-        orderDto.setTotalPrice(orderDetails.getUnitPrice() * orderDetails.getQty());
+//        orderDto.setOrderId(UUID.randomUUID().toString());
+//        orderDto.setTotalPrice(orderDetails.getUnitPrice() * orderDetails.getQty());
 
         /* send this order to the kafka */
         kafkaProducer.send("example-catalog-topic", orderDto);
-        orderProducer.send("orders", orderDto);
+//        orderProducer.send("orders", orderDto);
 
-        ResponseOrder result = mapper.map(orderDto, ResponseOrder.class);
+        ResponseOrder result = mapper.map(order, ResponseOrder.class);
 
         log.info("After added orders data");
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
@@ -69,12 +69,12 @@ public class OrderController {
             result.add(mapper.map(v, ResponseOrder.class));
         });
 
-        try {
-            Thread.sleep(1000);
-            throw new Exception("장애 발생");
-        } catch (InterruptedException ex) {
-            log.warn(ex.getMessage());
-        }
+//        try {
+//            Thread.sleep(1000);
+//            throw new Exception("장애 발생");
+//        } catch (InterruptedException ex) {
+//            log.warn(ex.getMessage());
+//        }
 
         log.info("Add retrieved orders data");
 
