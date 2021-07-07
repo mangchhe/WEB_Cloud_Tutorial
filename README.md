@@ -2,6 +2,181 @@
 
 ![micro_architecture](https://user-images.githubusercontent.com/50051656/124487479-bd6ba900-dde9-11eb-99b1-aef19980ddb9.JPG)
 
+## API
+
+![api](https://user-images.githubusercontent.com/50051656/124787563-84673c00-df83-11eb-86b9-305cfeb4ad29.JPG)
+
+### 1. 사용자 등록
+
+#### Request
+
+``` http
+POST /USER-SERVICE/users HTTP/1.1
+```
+
+``` json
+{
+  "email" : <이메일>,
+  "name" : <이름>,
+  "pwd" : <비밀번호>
+}
+```
+
+#### Response
+
+``` http
+HTTP/1.1 201 Created
+```
+
+``` json
+{
+  "email" : "이메일",
+  "name" : "이름",
+  "pwd" : "비밀번호"
+}
+```
+
+### 2. 사용자 조회
+
+#### Request
+
+``` http
+GET /USER-SERVICE/users HTTP/1.1
+Authorization: Bearer {ACCESS_TOKEN}
+```
+
+#### Response
+
+``` http
+HTTP/1.1 200 OK
+```
+
+``` json
+[
+  {
+    "email" : "이메일",
+    "name" : "이름",
+    "userId" : "아이디"
+  },
+]
+```
+
+### 3. 상품 조회
+
+#### Request
+
+``` http
+GET /CATALOG-SERVICE/catalogs HTTP/1.1
+Authorization: Bearer {ACCESS_TOKEN}
+```
+
+#### Response
+
+``` http
+HTTP/1.1 200 OK
+```
+
+``` json
+[
+  {
+    "productId" : "상품 ID",
+    "productName" : "상품 이름",
+    "stock" : "재고 수량",
+    "unitPrice" : "개당 가격",
+    "createdAt" : "상품 등록일"
+  },
+]
+```
+
+### 4. 상품 주문
+
+#### Request
+
+``` http
+POST /ORDER-SERVICE/{userId}/orders HTTP/1.1
+Authorization: Bearer {ACCESS_TOKEN}
+```
+
+``` json
+{
+    "productId": <상품 ID>,
+    "qty": <수량>,
+    "unitPrice": <개당 가격>
+}
+```
+
+#### Response
+
+``` http
+HTTP/1.1 201 Created
+```
+
+``` json
+{
+  "productID" : "상품 ID",
+  "qty" : "수량",
+  "unitPrice" : "개당 가격",
+  "totalPrice" : "총 가격",
+  "orderId" : "주문 ID"
+}
+```
+
+### 5. 주문 수량 업데이트
+
+- Kafka
+
+### 6. 주문 확인
+
+#### Request
+
+``` http
+GET /USER-SERVICE/users/{userId} HTTP/1.1
+Authorization: Bearer {ACCESS_TOKEN}
+```
+
+#### Response
+
+``` http
+HTTP/1.1 200 OK
+```
+
+``` json
+{
+  "userId" : "아이디",
+  "name" : "이름",
+  "email" : "이메일",
+  "orders" : ["주문 내역"]
+}
+```
+
+### 7. 주문 조회
+
+#### Request
+
+``` http
+GET /ORDER-SERVICE/{userId}/orders HTTP/1.1
+Authorization: Bearer {ACCESS_TOKEN}
+```
+
+#### Response
+
+``` http
+HTTP/1.1 200 OK
+```
+
+``` json
+[
+  {
+    "productID" : "상품 ID",
+    "qty" : "수량",
+    "unitPrice" : "개당 가격",
+    "totalPrice" : "총 가격",
+    "createdAt" : "주문일자",
+    "orderId" : "주문 ID"
+  },
+]
+```
+
 ## Usage
 
 ### Network
